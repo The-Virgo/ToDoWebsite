@@ -47,7 +47,7 @@ namespace ToDoWebsite.Controllers
 
                 //TempData["Message"] = $"{t.Title} was added successfully";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction("Index");
             }
             return View();
         }

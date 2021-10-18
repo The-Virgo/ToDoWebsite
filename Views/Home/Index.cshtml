@@ -1,9 +1,10 @@
-﻿@{
+﻿@model IEnumerable<ToDoWebsite.Models.Task>
+@{
     TempData["Title"] = "Home Page";
 
     Html.ActionLink("Home", "Index");
 }
 
 <div class="text-center">
-    <h1 class="display-4">Things To Do</h1>
+    <h1 class="display-4">Home</h1>
 </div>
