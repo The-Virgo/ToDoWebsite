@@ -4,22 +4,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoWebsite.Data;
 
 namespace ToDoWebsite.Controllers
 {
     public class TaskController : Controller
     {
+
+        private readonly ApplicationDbContext _context;
+
+        public TaskController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: TaskController
-        public ActionResult Index()
+        /*public ActionResult Index()
         {
             return View();
-        }
+        } 
 
         // GET: TaskController/Details/5
         public ActionResult Details(int id)
         {
             return View();
-        }
+        } */
 
         // GET: TaskController/Create
         public ActionResult Create()
@@ -30,16 +39,17 @@ namespace ToDoWebsite.Controllers
         // POST: TaskController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(ToDoWebsite.Models.Task t)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                await ApplicationDb.AddProductAsync(_context, t);
+
+                //TempData["Message"] = $"{t.Title} was added successfully";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: TaskController/Edit/5
