@@ -19,11 +19,12 @@ namespace ToDoWebsite.Controllers
         }
 
         // GET: TaskController
-        /*public ActionResult Index()
+        public ActionResult Index()
         {
             return View();
         } 
 
+        /*
         // GET: TaskController/Details/5
         public ActionResult Details(int id)
         {
