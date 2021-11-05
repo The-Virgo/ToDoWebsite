@@ -10,7 +10,7 @@ using ToDoWebsite.Data;
 namespace ToDoWebsite.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211011010257_Tasks")]
+    [Migration("20211105170536_Tasks")]
     partial class Tasks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,12 +240,12 @@ namespace ToDoWebsite.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserIdId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("TaskId");
 
-                    b.HasIndex("UserIdId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tasks");
                 });
@@ -303,9 +303,9 @@ namespace ToDoWebsite.Data.Migrations
 
             modelBuilder.Entity("ToDoWebsite.Models.Task", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UserId")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserIdId");
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,8 +13,10 @@ namespace ToDoWebsite.Models
         [Key]
         public int TaskId { get; set; }
 
-        [ForeignKey("UserId")]
-        public IdentityUser UserId { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+
+        public IdentityUser User { get; set; }
 
         public string Title { get; set; }
 

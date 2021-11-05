@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ToDoWebsite.Data;
 
@@ -19,9 +20,12 @@ namespace ToDoWebsite.Controllers
         }
 
         // GET: TaskController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<ToDoWebsite.Models.Task> tasks = await ApplicationDb.GetTasksAsync(_context, userId);
+
+            return View(tasks);
         } 
 
         /*
@@ -44,7 +48,10 @@ namespace ToDoWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await ApplicationDb.AddProductAsync(_context, t);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                t.UserId = userId;
+
+                await ApplicationDb.AddTaskAsync(_context, t);
 
                 //TempData["Message"] = $"{t.Title} was added successfully";
 
