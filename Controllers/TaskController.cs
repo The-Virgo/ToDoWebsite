@@ -19,11 +19,12 @@ namespace ToDoWebsite.Controllers
         }
 
         // GET: TaskController
-        /*public ActionResult Index()
+        public ActionResult Index()
         {
             return View();
         } 
 
+        /*
         // GET: TaskController/Details/5
         public ActionResult Details(int id)
         {
@@ -47,7 +48,7 @@ namespace ToDoWebsite.Controllers
 
                 //TempData["Message"] = $"{t.Title} was added successfully";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction("Index");
             }
             return View();
         }
