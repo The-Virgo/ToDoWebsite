@@ -62,24 +62,30 @@ namespace ToDoWebsite.Controllers
         }
 
         // GET: TaskController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            ToDoWebsite.Models.Task t = await ApplicationDb.GetTaskAsync(_context, id);
+
+            // pass product to view
+            return View(t);
         }
 
         // POST: TaskController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(ToDoWebsite.Models.Task t)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Entry(t).State = EntityState.Modified;
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                t.UserId = userId;
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(t);
         }
 
         // GET: TaskController/Delete/5
