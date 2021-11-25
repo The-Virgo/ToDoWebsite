@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,16 +91,15 @@ namespace ToDoWebsite.Controllers
         // POST: TaskController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ToDoWebsite.Models.Task t = await ApplicationDb.GetTaskAsync(_context, id);
+
+            _context.Entry(t).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }

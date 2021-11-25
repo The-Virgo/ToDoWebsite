@@ -26,5 +26,14 @@ namespace ToDoWebsite.Data
                        .ToListAsync();
 
         }
+
+        public static async Task<ToDoWebsite.Models.Task> GetTaskAsync(ApplicationDbContext context, int taskId)
+        {
+            ToDoWebsite.Models.Task t = await (from Tasks in context.Tasks
+                               where Tasks.TaskId == taskId
+                               select Tasks).SingleAsync();
+
+            return t;
+        }
     }
 }
