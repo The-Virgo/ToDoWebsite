@@ -107,5 +107,19 @@ namespace ToDoWebsite.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> MarkDone(int id)
+        {
+            if (ModelState.IsValid) 
+            {
+                ToDoWebsite.Models.Task t = await ApplicationDb.GetTaskAsync(_context, id);
+
+                _context.Entry(t).State = EntityState.Modified;
+                t.IsComplete = true;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
