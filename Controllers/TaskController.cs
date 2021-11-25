@@ -27,7 +27,15 @@ namespace ToDoWebsite.Controllers
             List<ToDoWebsite.Models.Task> tasks = await ApplicationDb.GetTasksAsync(_context, userId);
 
             return View(tasks);
-        } 
+        }
+
+        public async Task<IActionResult> Finished()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<ToDoWebsite.Models.Task> tasks = await ApplicationDb.GetTasksAsync(_context, userId);
+
+            return View(tasks);
+        }
 
         /*
         // GET: TaskController/Details/5
@@ -120,6 +128,20 @@ namespace ToDoWebsite.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> MarkNotDone(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ToDoWebsite.Models.Task t = await ApplicationDb.GetTaskAsync(_context, id);
+
+                _context.Entry(t).State = EntityState.Modified;
+                t.IsComplete = false;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Finished");
         }
     }
 }
