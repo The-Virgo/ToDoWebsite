@@ -11,25 +11,25 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ToDoWebsite</a>
+<body style="background-color: #121212;">
+    <header style="color: #ffffff;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3" style="background-color: #1f1f1f;">
+            <div class="container" style="color: #ffffff;">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color: #ffffff">ToDoWebsite</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="color: #ffffff;">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1" style="color: #ffffff;">
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Task" asp-action="Index">To Do</a>
+                                <a class="nav-link" style="color: #ffffff" asp-area="" asp-controller="Task" asp-action="Index">To Do</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Task" asp-action="Finished">Finished</a>
+                                <a class="nav-link" style="color: #ffffff" asp-area="" asp-controller="Task" asp-action="Finished">Finished</a>
                             </li>
                         }
                     </ul>
@@ -37,17 +37,15 @@
             </div>
         </nav>
     </header>
+
+
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="color: #ffffff;">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ToDoWebsite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
