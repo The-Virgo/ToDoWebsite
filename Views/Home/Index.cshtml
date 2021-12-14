@@ -1,12 +1,22 @@
-﻿@model IEnumerable<ToDoWebsite.Models.Task>
+﻿@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using Microsoft.AspNetCore.Identity
 @{
     TempData["Title"] = "Home Page";
 
     Html.ActionLink("Home", "Index");
 }
 
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @Html.Partial("_AtGlancePartial")
+}
+else{
+
 <div class="text-center">
     <h1 class="display-4">Stay organized and on task, anywhere, anytime.</h1>
     <h2>Create your free account now.</h2>
 
 </div>
+}

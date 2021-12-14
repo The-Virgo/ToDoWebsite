@@ -10,6 +10,9 @@ using ToDoWebsite.Data;
 
 namespace ToDoWebsite.Controllers
 {
+    /// <summary>
+    /// Controls all interactions that Task class and Views have with the database
+    /// </summary>
     public class TaskController : Controller
     {
 
@@ -37,20 +40,19 @@ namespace ToDoWebsite.Controllers
             return View(tasks);
         }
 
-        /*
-        // GET: TaskController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        } */
-
-        // GET: TaskController/Create
+        
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TaskController/Create
+        /// <summary>
+        /// Allows user to create task with inputed data
+        /// </summary>
+        /// <param name="t">The task being created</param>
+        /// <returns>
+        /// Action Result
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ToDoWebsite.Models.Task t)
@@ -62,23 +64,26 @@ namespace ToDoWebsite.Controllers
 
                 await ApplicationDb.AddTaskAsync(_context, t);
 
-                //TempData["Message"] = $"{t.Title} was added successfully";
-
                 return RedirectToAction("Index");
             }
             return View();
         }
 
-        // GET: TaskController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
             ToDoWebsite.Models.Task t = await ApplicationDb.GetTaskAsync(_context, id);
 
-            // pass product to view
+            // pass task to view
             return View(t);
         }
 
-        // POST: TaskController/Edit/5
+        /// <summary>
+        /// Changes existing task info to what is set by user
+        /// </summary>
+        /// <param name="t">The task being edited</param>
+        /// <returns>
+        /// Action Result
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ToDoWebsite.Models.Task t)
@@ -96,13 +101,18 @@ namespace ToDoWebsite.Controllers
             return View(t);
         }
 
-        // GET: TaskController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
-        // POST: TaskController/Delete/5
+        /// <summary>
+        /// Deletes selected task
+        /// </summary>
+        /// <param name="id">Id of selected task</param>
+        /// <returns>
+        /// Action Result
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Delete")]
@@ -116,6 +126,13 @@ namespace ToDoWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// changes the isComplete boolean property of a task to true 
+        /// </summary>
+        /// <param name="id">The id of the selected task</param>
+        /// <returns>
+        /// Action Result
+        /// </returns>
         public async Task<ActionResult> MarkDone(int id)
         {
             if (ModelState.IsValid) 
@@ -130,6 +147,13 @@ namespace ToDoWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Changes the isComplete boolean property of a task to false
+        /// </summary>
+        /// <param name="id">The id of the selected task</param>
+        /// <returns>
+        /// Action Result
+        /// </returns>
         public async Task<ActionResult> MarkNotDone(int id)
         {
             if (ModelState.IsValid)
